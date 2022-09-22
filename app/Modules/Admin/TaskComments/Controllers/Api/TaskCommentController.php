@@ -34,8 +34,7 @@ class TaskCommentController extends Controller
         $this->authorize('edit', TaskComment::class);
         $task = $this->service->store($request, Auth::user());
         return ResponseService::sendJsonResponse(true, 200, [],[
-            'item' => $task
+            'item' => $task->renderData()
         ]);
-
     }
 }

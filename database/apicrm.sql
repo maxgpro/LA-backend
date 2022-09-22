@@ -212,7 +212,7 @@ INSERT INTO `menus` (`id`, `title`, `path`, `parent`, `type`, `sort_order`, `cre
 (11, 'Sources', 'sources', 0, 'front', 100, NULL, NULL),
 (12, 'Units', 'units', 0, 'front', 100, NULL, NULL),
 (13, 'Lead Archive', 'archives', 0, 'front', 100, NULL, NULL),
-(14, 'Analitics', 'analitics', 0, 'front', 100, NULL, NULL),
+(14, 'Analytics', 'analitics', 0, 'front', 100, NULL, NULL),
 (15, 'Tasks', 'tasks', 0, 'front', 100, NULL, NULL),
 (16, 'Task Archive', 'task_archives', 0, 'front', 100, NULL, NULL);
 

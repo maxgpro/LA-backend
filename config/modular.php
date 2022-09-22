@@ -13,20 +13,23 @@ return [
 
     'modules' => [
         'Admin' => [
-            'TaskComments',
-            'Task',
             'Analytics',
-            'LeadComment',
-            'Lead',
-            'Sources',
-            'Role',
-            'Menu',
             'Dashboard',
-            'User'
+            'Lead',
+            'LeadComment',
+            'Menu',
+            'Role',
+            'Sources',
+            'Status',
+            'Task',
+            'TaskComments',
+            'Unit',
+            'User',
         ],
 
         'Pub' => [
-            'Auth'
+            'Auth',
+            'Analytics',
         ],
     ]
 ];

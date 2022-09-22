@@ -27,7 +27,6 @@ class AnalyticsController extends Controller
     {
         $this->authorize('viewAnalytics', Lead::class);
         $leadsData =  $this->service->getAnalytic($request);
-
         return ResponseService::sendJsonResponse(true, 200,[],[
             'items' => $leadsData
         ]);

@@ -19,11 +19,10 @@ class Menu extends Model
     }
 
     public function scopeFrontMenu($query, User $user) {
-
         return $query->
                 where('type', self::MENU_TYPE_FRONT)->
                 whereHas('perms', function($q) use($user) {
-                    $arr = collect($user->getMergedPermissions())->map( function($item) {
+                    $arr = collect($user->getMergedPermissions())->map(function($item) {
                         return $item['id'];
                     });
                     $q->whereIn('id', $arr->toArray());

@@ -18,6 +18,7 @@ use App\Modules\Admin\User\Models\User;
 use App\Modules\Admin\User\Policies\UserPolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
+use Laravel\Passport\Passport;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -46,6 +47,8 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        //
+//        Passport::tokensExpireIn(now()->addSeconds(864000));
+//        Passport::refreshTokensExpireIn(now()->addDays(10));
+//        Passport::personalAccessTokensExpireIn(now()->addSeconds(86400));
     }
 }

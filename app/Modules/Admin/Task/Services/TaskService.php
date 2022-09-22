@@ -6,8 +6,8 @@ namespace App\Modules\Admin\Task\Services;
 
 use App\Modules\Admin\Status\Models\Status;
 use App\Modules\Admin\Task\Models\Task;
+use App\Modules\Admin\TaskComments\Services\TaskCommentService;
 use Illuminate\Support\Facades\Auth;
-use App\Modules\Admin\User\Models\User;
 
 class TaskService
 {
@@ -21,11 +21,11 @@ class TaskService
 
         $statuses->each(function ($item, $key) use (&$resultTasks, $tasks) {
             $collection = $tasks->where('status_id', $item->id);
-            $resultTasks[$item->title] = $collection->map(function($elem) {
-                return $elem;
-            });
-        });
 
+            $resultTasks[$item->title] = array_values($collection->map(function($elem) {
+                return $elem->renderData();
+            })->toArray());
+        });
         return $resultTasks;
     }
 
@@ -40,14 +40,17 @@ class TaskService
         $user->tasks()->save($task);
 
         $task->statuses()->attach($status->id);
-//        $this->addTasksComments($task, $user, $status, $request);
-        return $task;
+        $this->addTasksComments($task, $user, $status, $request);
+        return $task->renderData();
     }
 
     public function archive()
     {
         $tasks = (new Task())->getArchives(Auth::user());
-        return $tasks;
+
+        return (collect($tasks->items())->transform(function($item) {
+            return $item->renderData(false);
+        }));
     }
 
     private function addTasksComments($task, $user, $status, $request)

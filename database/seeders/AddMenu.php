@@ -96,8 +96,8 @@ class AddMenu extends Seeder
                     'sort_order' => 100,
                 ],
                 [
-                    'title' => 'Analitics',
-                    'path' => 'analitics',
+                    'title' => 'Analytics',
+                    'path' => 'analytics',
                     'parent' => 0,
                     'type' => 'front',
                     'sort_order' => 100,

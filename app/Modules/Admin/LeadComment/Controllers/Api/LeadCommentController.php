@@ -51,7 +51,7 @@ class LeadCommentController extends Controller
         $leadComment = $this->service->store($request, Auth::user());
 
         return ResponseService::sendJsonResponse(true, 200, [],[
-            'item' => $leadComment
+            'item' => $leadComment->renderData()
         ]);
     }
 

@@ -64,8 +64,7 @@ class TaskController extends Controller
         ]);
     }
 
-    public function archive()
-    {
+    public function archive() {
         $this->authorize('view', Task::class);
         $tasks = $this->service->archive();
         return ResponseService::sendJsonResponse(true, 200, [],[

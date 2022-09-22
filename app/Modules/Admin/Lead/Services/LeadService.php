@@ -8,6 +8,8 @@ use App\Modules\Admin\Lead\Models\Lead;
 use App\Modules\Admin\LeadComment\Services\LeadCommentService;
 use App\Modules\Admin\Status\Models\Status;
 use App\Modules\Admin\User\Models\User;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 class LeadService
 {
@@ -20,12 +22,10 @@ class LeadService
 
         $statuses->each(function($item, $key) use(&$resultLeads,$leads) {
             $collection = $leads->where('status_id', $item->id);
-            $resultLeads[$item->title] = $collection->map(function($elem) {
-                return $elem;
-            });
-
+            $resultLeads[$item->title] = array_values($collection->map(function($elem) {
+                return $elem->renderData();
+            })->toArray());
         });
-
         return $resultLeads;
     }
 
@@ -113,7 +113,10 @@ class LeadService
     public function archive()
     {
         $leads = (new Lead())->getArchive();
-        return $leads;
+
+        return (collect($leads->items())->transform(function($item) {
+            return $item->renderData(false);
+        }));
     }
 
     public function checkExist($request)
@@ -134,5 +137,18 @@ class LeadService
         $lead->isQualityLead = true;
         $lead->save();
         return $lead;
+    }
+
+    public function getAddSaleCount()
+    {
+        $count = 0;
+        $user = Auth::user();
+        $count = $user->
+        leads()->
+        where('is_add_sale', '1')->
+        where('isQualityLead', '1')->
+        where(\DB::raw('DATE_FORMAT(created_at,"%Y-%m-%d")'), '>', \DB::raw('DATE_SUB(CURRENT_DATE, INTERVAL 1 MONTH)'))->
+        count();
+        return $count;
     }
 }

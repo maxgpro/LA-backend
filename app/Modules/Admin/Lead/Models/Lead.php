@@ -79,5 +79,40 @@ class Lead extends Model
         paginate(config('settings.pagination'));
     }
 
+    public function renderData($load = true) {
+
+        if($load) {
+            $this->load(['source','unit','status']);
+        }
+        return [
+            'id' => $this->id,
+            'phone' => $this->phone,
+            'link' => $this->link,
+            'count_create' => $this->count_create,
+            'is_processed' =>       (bool)$this->is_processed,
+            'isQualityLead' =>      (bool)$this->isQualityLead,
+            'is_express_delivery' => (bool)$this->is_express_delivery,
+            'is_add_sale' =>        (bool)$this->is_add_sale,
+            'source_id' => $this->source_id,
+            'unit_id' => $this->unit_id,
+            'status_id' => $this->status_id,
+            'created_at' => $this->created_at->toDateTimeString(),
+            'lastComment' =>  isset($this->lastComment()->comment_value) ? $this->lastComment()->comment_value : "",
+            'created_at_time' => $this->created_at,
+            'source' => [
+                'id' => $this->source->id,
+                'title' => $this->source->title,
+            ],
+            'unit' => [
+                'id' => $this->unit->id,
+                'title' => $this->unit->title,
+            ],
+            'status' => [
+                'id' => $this->status->id,
+                'title' => $this->status->title_ru,
+            ],
+            'author' => $this->user->firstname,
+        ];
+    }
 
 }

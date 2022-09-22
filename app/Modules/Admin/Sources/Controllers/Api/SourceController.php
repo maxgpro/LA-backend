@@ -104,7 +104,7 @@ class SourceController extends Controller
     {
         $source->delete();
         return ResponseService::sendJsonResponse(true, 200,[],[
-            'item' =>  $source->toArray()
+            'item' =>  $source
         ]);
     }
 }

@@ -4,9 +4,8 @@ namespace App\Modules\Admin\Analytics\Export;
 
 use App\Modules\Admin\Lead\Models\Lead;
 use App\Modules\Admin\User\Models\User;
-use DateService;
+use App\Services\Date\Facades\DateService;
 use Carbon\Carbon;
-use Carbon\Traits\Creator;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 
@@ -22,8 +21,7 @@ class LeadsExport implements FromCollection, WithHeadings
      * @param $dateStart
      * @param $dateEnd
      */
-    public function __construct(User $user, $dateStart, $dateEnd)
-    {
+    public function __construct(User $user, $dateStart, $dateEnd) {
         $this->user = $user;
 
         $this->dateStart = new Carbon('first day of this month');
